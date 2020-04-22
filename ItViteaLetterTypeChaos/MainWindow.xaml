@@ -5,19 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ItViteaLetterTypeChaos"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="700">
+        Title="MainWindow" Height="500" Width="700" Loaded="WindowLoaded">
     <Grid Background="WhiteSmoke">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
         <Grid Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="0.3*"/>
             </Grid.ColumnDefinitions>
-            <TextBox Name="BoxTxt" Margin="5" TextWrapping="Wrap"/>
+            <TextBox Name="BoxTxt" Margin="5" TextWrapping="Wrap" Text="{Binding TextString}" >
+                <TextBox.DataContext>
+                    <local:MyVisualHost/>
+                </TextBox.DataContext>
+
+            </TextBox>
             <StackPanel Grid.Column="1" Margin="0,5">
                 <Button Content="Import" Click="Btn_Click_Import"/>
                 <Button Content="Export" Click="Btn_Click_Export"/>
                 <Button Content="Scramble"/>
             </StackPanel>
         </Grid>
+        
+       <!-- <RichTextBox Name="rtb" Grid.Row="1" Margin="5">
+            <FlowDocument>
+                <Paragraph></Paragraph>
+            </FlowDocument>
+        </RichTextBox>-->
+        <Canvas Name="MyCanvas" Grid.Row="1" Margin="5"/>
+        
     </Grid>
 </Window>
