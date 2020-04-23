@@ -26,35 +26,30 @@ namespace ItViteaLetterTypeChaos
     /// </summary>
     public partial class MainWindow : Window
     {
+        public int textLength;
         public VHScramble VHost;
+        
         public MainWindow()
         {
             InitializeComponent();
             VHost = new VHScramble();
             MyCanvas.Children.Add(VHost);
-            
         }
-        //This region is for all methods relating to manipulating text and aren't directly tied to objects in the view.
-        #region Support Methods
 
-
-
-        #endregion
-
-        //This region is specifically for all methods linked to buttons.
-        #region Button Methods
+    
+        //This region is specifically for all methods linked to buttons and other objects in the view.
+        #region View Methods
 
         private void Btn_Click_Scramble(object sender, RoutedEventArgs e)
         {
             if (BoxTxt.Text.Length < 0)
                 lNotif.Text = "There is no text to scramble.";
-            else if (BoxTxt.Text.Length > 800)
-                lNotif.Text = "Text has to be less than 800 characters.";
+            else if (BoxTxt.Text.Length > 3750)
+                lNotif.Text = "Text has to be less than 3750 characters.";
             else
             {
-                lNotif.Text = "Scrambling.. ";
                 VHost.UpdateScramble(BoxTxt.Text);
-                lNotif.Text = "Text succecfully scrambled.";
+                lNotif.Text = "";
             }
         }
 
@@ -70,8 +65,18 @@ namespace ItViteaLetterTypeChaos
             }
         }
 
-        
-        #endregion
-    }
+        private void Btn_Click_Clear(object sender, RoutedEventArgs e)
+        {
+            BoxTxt.Text = null;
+        }
 
+        private void BoxTxt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            textLength = BoxTxt.Text.Length;
+            bTextLength.Text = textLength.ToString();
+        }
+        #endregion
+
+
+    }
 }

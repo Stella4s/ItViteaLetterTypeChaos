@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ItViteaLetterTypeChaos"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="700" >
+        Title="Text Scrambler" Height="500" Width="700" >
+
     <Grid Background="WhiteSmoke">
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -17,24 +18,40 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="0.3*"/>
             </Grid.ColumnDefinitions>
-            <TextBox Name="BoxTxt" Margin="5" TextWrapping="Wrap"/>
-            
+            <TextBox Name="BoxTxt" Margin="5" TextWrapping="Wrap" TextChanged="BoxTxt_TextChanged"/>
+
             <Grid Grid.Column="1" Margin="0,5">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
-                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <StackPanel>
-                <Button Content="Import" Click="Btn_Click_Import" Padding="5"/>
-                <Button Content="Scramble" Click="Btn_Click_Scramble" Padding="5"/>
-            </StackPanel>
-            <TextBlock Name="lNotif" Text="" Grid.Row="1" TextWrapping="Wrap" Padding="5"/>
+                    <Button Content="Import" Click="Btn_Click_Import" Padding="5" ToolTip="For importing text from a document."/>
+                    <Button Content="Clear" Click="Btn_Click_Clear" Padding="5" ToolTip="This will clear the text in the textbox."/>
+                    <Button Content="Scramble" Click="Btn_Click_Scramble" Padding="5" />
+                </StackPanel>
+
+                <Grid Grid.Row="1" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Characters: " VerticalContentAlignment="Center" FontSize="14"/>
+                    <TextBlock Name="bTextLength"  Grid.Column="1" Padding="5" VerticalAlignment="Center" FontSize="14" Text=""/>
+                    <TextBlock Name="lNotif" Text="" TextWrapping="Wrap" Padding="5" Grid.Row="1" Grid.ColumnSpan="2" FontSize="14"/>
+                </Grid>
+                
             </Grid>
-            
         </Grid>
 
         <ScrollViewer Grid.Row="1"  Margin="5">
-            <Canvas Name="MyCanvas" Background="White"/>
+            <Grid Background="White">
+                <Grid Name="MyCanvas"  Margin="2" VerticalAlignment="Top"/>
+            </Grid>
         </ScrollViewer>
 
     </Grid>

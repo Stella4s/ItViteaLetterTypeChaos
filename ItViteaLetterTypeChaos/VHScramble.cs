@@ -21,13 +21,14 @@ namespace ItViteaLetterTypeChaos
             private VisualCollection _children;
             public Random rnd;
             public static readonly List<string> FontNames = Fonts.SystemFontFamilies.Select(f => f.Source).ToList();
+            private static string testString = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor";
 
-            public VHScramble()
-            {
-                rnd = new Random();
-                _children = new VisualCollection(this);
-                _children.Add(ScrambledText());
-            }
+        public VHScramble()
+        {
+            rnd = new Random();
+            _children = new VisualCollection(this);
+            UpdateScramble(testString);
+        }
 
         // Provide a required override for the VisualChildrenCount property.
         protected override int VisualChildrenCount => _children.Count;
@@ -43,45 +44,6 @@ namespace ItViteaLetterTypeChaos
                 return _children[index];
             }
 
-        //Generates test scrambled text.
-        private DrawingVisual ScrambledText()
-        {
-            // Create an instance of a DrawingVisual.
-            DrawingVisual drawingVisual = new DrawingVisual();
-
-            // Retrieve the DrawingContext from the DrawingVisual.
-            DrawingContext drawingContext = drawingVisual.RenderOpen();
-
-            string testString = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor";
-
-            // Create the initial formatted text string.
-            FormattedText formattedText = new FormattedText(
-                testString,
-                CultureInfo.GetCultureInfo("en-us"),
-                FlowDirection.LeftToRight,
-                new Typeface("Verdana"),
-                32,
-                Brushes.Black);
-
-            formattedText.MaxTextWidth = 600;
-
-            //Use an int index to keep track of the location of each char in the string as you change the Fontfamily per char.
-            int index = 0;
-            foreach (char c in testString)
-            {
-                formattedText.SetFontFamily(FontNames[rnd.Next(0, FontNames.Count)], index, 1);
-                index++;
-            }
-
-            // Draw the formatted text string to the DrawingContext of the control.
-            drawingContext.DrawText(formattedText, new Point(10, 0));
-
-            // Close the DrawingContext to persist changes to the DrawingVisual.
-            drawingContext.Close();
-
-            return drawingVisual;
-        }
-
         //Updates Scrambled text based on input string.
         public void UpdateScramble(string TextString)
         {
@@ -93,12 +55,10 @@ namespace ItViteaLetterTypeChaos
                 TextString,
                 CultureInfo.GetCultureInfo("en-us"),
                 FlowDirection.LeftToRight,
-                new Typeface("Verdana"),
+                new Typeface("Segoe UI"),
                 16,
                 Brushes.Black);
-
-            formattedText.MaxTextWidth = 600;
-
+            
             //Use an int index to keep track of the location of each char in the string as you change the Fontfamily per char.
             int index = 0;
             foreach (char c in TextString)
@@ -107,15 +67,18 @@ namespace ItViteaLetterTypeChaos
                 index++;
             }
 
+            formattedText.MaxTextWidth = 640;
+            Height = formattedText.Height;
+
             // Draw the formatted text string to the DrawingContext of the control.
-            drawingContext.DrawText(formattedText, new Point(10, 0));
+            drawingContext.DrawText(formattedText, new Point(0, 0));
+
 
             // Close the DrawingContext to persist changes to the DrawingVisual.
             drawingContext.Close();
 
             _children.Clear();
             _children.Add(drawingVisual);
-
         }
     }
 }
