@@ -26,31 +26,39 @@ namespace ItViteaLetterTypeChaos
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        public VHScramble VHost;
         public MainWindow()
         {
             InitializeComponent();
-
-        }
-
-        private void WindowLoaded(object sender, EventArgs e)
-        {
-            var VHost = new VHScramble();
+            VHost = new VHScramble();
             MyCanvas.Children.Add(VHost);
+            
         }
-
-        //public variables.
-        public string textPlain, textChaos;
-
         //This region is for all methods relating to manipulating text and aren't directly tied to objects in the view.
         #region Support Methods
 
 
-       
+
         #endregion
 
         //This region is specifically for all methods linked to buttons.
         #region Button Methods
+
+        private void Btn_Click_Scramble(object sender, RoutedEventArgs e)
+        {
+            if (BoxTxt.Text.Length < 0)
+                lNotif.Text = "There is no text to scramble.";
+            else if (BoxTxt.Text.Length > 800)
+                lNotif.Text = "Text has to be less than 800 characters.";
+            else
+            {
+                lNotif.Text = "Scrambling.. ";
+                VHost.UpdateScramble(BoxTxt.Text);
+                lNotif.Text = "Text succecfully scrambled.";
+            }
+        }
+
+        //Import method so one can import already written texts.
         private void Btn_Click_Import(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -62,14 +70,7 @@ namespace ItViteaLetterTypeChaos
             }
         }
 
-        private void Btn_Click_Export(object sender, RoutedEventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            saveFileDialog.Filter = "Text file (*.txt)|*.txt";
-            if (saveFileDialog.ShowDialog() == true)
-                File.WriteAllText(saveFileDialog.FileName, BoxTxt.Text);
-        }
+        
         #endregion
     }
 
