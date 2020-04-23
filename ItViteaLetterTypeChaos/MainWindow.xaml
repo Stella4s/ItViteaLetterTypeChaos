@@ -17,10 +17,8 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="0.3*"/>
             </Grid.ColumnDefinitions>
-            <TextBox Name="BoxTxt" Margin="5" TextWrapping="Wrap" Text="{Binding TextString}" >
-                <TextBox.DataContext>
-                    <local:MyVisualHost/>
-                </TextBox.DataContext>
+            <TextBox Name="BoxTxt" Margin="5" TextWrapping="Wrap">
+
 
             </TextBox>
             <StackPanel Grid.Column="1" Margin="0,5">
