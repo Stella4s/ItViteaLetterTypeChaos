@@ -14,10 +14,10 @@ namespace ItViteaLetterTypeChaos
    public class VHScramble : FrameworkElement
     {
         // Create a host visual derived from the FrameworkElement class.
-        // This class provides layout, event handling, and container support for
-        // the child visual objects.
+        // This class provides layout, event handling, and container support for the child visual objects.
 
             // Create a collection of child visual objects.
+            //A Random class for generating random numbers. And a static list of all the FontFamilies.
             private VisualCollection _children;
             public Random rnd;
             public static readonly List<string> FontNames = Fonts.SystemFontFamilies.Select(f => f.Source).ToList();
@@ -44,7 +44,7 @@ namespace ItViteaLetterTypeChaos
                 return _children[index];
             }
 
-        //Updates Scrambled text based on input string.
+        //Generates Scrambled text based on input string.
         public void UpdateScramble(string TextString)
         {
             DrawingVisual drawingVisual = new DrawingVisual();
@@ -66,7 +66,8 @@ namespace ItViteaLetterTypeChaos
                 formattedText.SetFontFamily(FontNames[rnd.Next(0, FontNames.Count)], index, 1);
                 index++;
             }
-
+            //Set the max width to prevent text going out of bounds. 
+            //Set the Height to the height of the formattedText to allow for the scrollbar to work.
             formattedText.MaxTextWidth = 640;
             Height = formattedText.Height;
 
@@ -77,6 +78,7 @@ namespace ItViteaLetterTypeChaos
             // Close the DrawingContext to persist changes to the DrawingVisual.
             drawingContext.Close();
 
+            //Clear the prior text and add the newly generated drawingVisual.
             _children.Clear();
             _children.Add(drawingVisual);
         }

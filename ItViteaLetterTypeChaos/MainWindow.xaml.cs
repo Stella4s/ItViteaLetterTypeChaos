@@ -37,12 +37,11 @@ namespace ItViteaLetterTypeChaos
         }
 
     
-        //This region is specifically for all methods linked to buttons and other objects in the view.
-        #region View Methods
-
+        #region Methods
+        //Click method to scramble text. Checks for text length before calling the scramble method.
         private void Btn_Click_Scramble(object sender, RoutedEventArgs e)
         {
-            if (BoxTxt.Text.Length < 0)
+            if (BoxTxt.Text.Length <= 0)
                 lNotif.Text = "There is no text to scramble.";
             else if (BoxTxt.Text.Length > 3750)
                 lNotif.Text = "Text has to be less than 3750 characters.";
@@ -64,12 +63,13 @@ namespace ItViteaLetterTypeChaos
                 BoxTxt.Text = File.ReadAllText(openFileDialog.FileName);
             }
         }
-
+        //Method to clear the written text easily.
         private void Btn_Click_Clear(object sender, RoutedEventArgs e)
         {
             BoxTxt.Text = null;
         }
-
+        //Method to keep track of the changing text to update the character counter. 
+        //So the user can easily see if they are over the character limit.
         private void BoxTxt_TextChanged(object sender, TextChangedEventArgs e)
         {
             textLength = BoxTxt.Text.Length;
